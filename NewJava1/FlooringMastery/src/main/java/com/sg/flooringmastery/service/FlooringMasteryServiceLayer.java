@@ -18,9 +18,10 @@ import java.util.List;
  * @author n0200797
  */
 public interface FlooringMasteryServiceLayer {
-    
+
     public Order commitWork(LocalDate date, Order order)
-            throws FlooringMasteryPersistenceException, NoOrderFoundException, InvalidMoneyException;
+            throws FlooringMasteryPersistenceException, 
+            NoOrderFoundException, InvalidMoneyException;
 
     public List<Order> getOrders(LocalDate date)
             throws NoOrderFoundException,
@@ -38,10 +39,19 @@ public interface FlooringMasteryServiceLayer {
             FlooringMasteryPersistenceException,
             InvalidMoneyException;
 //******************************************************************************
-    public Order removeOrder(LocalDate date, Order order)
-                        throws NoOrderFoundException,
+
+    public void removeOrder(LocalDate date, Order order)
+            throws NoOrderFoundException,
             FlooringMasteryPersistenceException,
             InvalidMoneyException;
 
-//******************************************************************************     
+//******************************************************************************
+        public Order confirmOrderRemoval(LocalDate date, Order order)
+            throws FlooringMasteryPersistenceException, 
+            NoOrderFoundException, InvalidMoneyException;
+//******************************************************************************
+    public Order getOrder(int ordernumber, LocalDate date)
+            throws NoOrderFoundException,
+            FlooringMasteryPersistenceException,
+            InvalidMoneyException;
 }

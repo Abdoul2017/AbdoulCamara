@@ -51,88 +51,102 @@ public class FlooringMasteryServiceLayerFileImpl implements FlooringMasteryServi
     public Order createOrder(LocalDate date, Order order)
             throws NoOrderFoundException,
             FlooringMasteryPersistenceException,
-            InvalidMoneyException {
-        //boolean isValid = false;
-        
+            InvalidMoneyException {           
 
-        if (stateTaxDao.getTax(order.getTaxRate().getStateName()) == null) {
-            //isValid = true;
+        if (stateTaxDao.getTax(order.getTaxRate().getStateName()) == null) {            
             throw new FlooringMasteryPersistenceException("State Name Not Found");
         }
 
         if (productDao.getProduct(order.getProductType().getProductType()) == null) {
-            //isValid = true;
-            throw new FlooringMasteryPersistenceException("Product Name NotFound");
+                throw new FlooringMasteryPersistenceException("Product Name NotFound");
         }
+        
+        order.setNumber(generateOrderNumbers());
 
-        //if (isValid) {
-            order.setNumber(generateOrderNumbers());
-            
-            order.setCustomerName(order.getCustomerName());
-            order.setTaxRate(stateTaxDao.getTax(order.getTaxRate().getStateName()));
+        order.setCustomerName(order.getCustomerName());
+        order.setTaxRate(stateTaxDao.getTax(order.getTaxRate().getStateName()));
 
-            order.setProductType(productDao.getProduct(order.getProductType().getProductType()));
-            order.setArea(order.getArea());
-            order.setMaterialCost(order.getMaterialCost());
-            order.setLaborCost(order.getLaborCost());
-            order.setTax(order.getTax());
-            order.setTotal(order.getTotal());
+        order.setProductType(productDao.getProduct(order.getProductType().getProductType()));
+        order.setArea(order.getArea());
+        order.setMaterialCost(order.getMaterialCost());
+        order.setLaborCost(order.getLaborCost());
+        order.setTax(order.getTax());
+        order.setTotal(order.getTotal());
         //}
         return order;
+    }
+//******************************************************************************     
+
+    @Override
+    public Order getOrder(int ordernumber, LocalDate date)
+            throws NoOrderFoundException, 
+            FlooringMasteryPersistenceException, InvalidMoneyException {
+        return orderDao.getOrder(ordernumber, date);
     }
 
 //****************************************************************************** 
     @Override
-    public Order editOrder(LocalDate date, Order order) 
-            throws NoOrderFoundException, 
-            FlooringMasteryPersistenceException, 
+    public Order editOrder(LocalDate date, Order order)
+            throws NoOrderFoundException,
+            FlooringMasteryPersistenceException,
             InvalidMoneyException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return orderDao.editOrder(date,order);
     }
 //******************************************************************************
 
     @Override
-    public Order removeOrder(LocalDate date, Order order) 
-            throws NoOrderFoundException, 
-            FlooringMasteryPersistenceException, 
+    public void removeOrder(LocalDate date, Order order)
+            throws NoOrderFoundException,
+            FlooringMasteryPersistenceException,
             InvalidMoneyException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        orderDao.removeOrder(date, order.getNumber());
     }
 //******************************************************************************    
 
     @Override
-    public Order commitWork(LocalDate date, Order order) 
+    public Order commitWork(LocalDate date, Order order)
             throws FlooringMasteryPersistenceException,
             NoOrderFoundException, InvalidMoneyException {
         return orderDao.createOrder(date, order);
     }
-//******************************************************************************       
-    private int generateOrderNumbers()throws FlooringMasteryPersistenceException{
-                    Scanner scanner;
-            try {
-                scanner = new Scanner(new BufferedReader(new FileReader("orderNumbers.txt")));
-
-            } catch (FileNotFoundException e) {
-                throw new FlooringMasteryPersistenceException("-_- Could not Read fie into memory.", e);
-            }
-            String lastNumber = null;
-            while(scanner.hasNextLine()){
-                lastNumber = scanner.nextLine();
-            }
-            scanner.close();
-           int nextNumber = Integer.parseInt(lastNumber);
-           nextNumber+=1;
-           PrintWriter out;
-           
-           try{
-               out = new PrintWriter(new FileWriter("orderNumbers.txt"));
-           }catch(IOException e){
-               throw new FlooringMasteryPersistenceException(" Could not write to File");
-           }
-           out.println(nextNumber);
-           out.flush();
-           out.close();
-           return nextNumber;
+    
+        @Override
+    public Order confirmOrderRemoval(LocalDate date, Order order) 
+            throws FlooringMasteryPersistenceException, 
+            NoOrderFoundException, InvalidMoneyException {
+        return orderDao.removeOrder(date, order.getNumber()); 
     }
 //******************************************************************************       
+
+    private int generateOrderNumbers() throws FlooringMasteryPersistenceException {
+        Scanner scanner;
+        try {
+            scanner = new Scanner(new BufferedReader(new FileReader("orderNumbers.txt")));
+
+        } catch (FileNotFoundException e) {
+            throw new FlooringMasteryPersistenceException("-_- Could not Read fie into memory.", e);
+        }
+        String lastNumber = null;
+        while (scanner.hasNextLine()) {
+            lastNumber = scanner.nextLine();
+        }
+        scanner.close();
+        int nextNumber = Integer.parseInt(lastNumber);
+        nextNumber += 1;
+        PrintWriter out;
+
+        try {
+            out = new PrintWriter(new FileWriter("orderNumbers.txt"));
+        } catch (IOException e) {
+            throw new FlooringMasteryPersistenceException(" Could not write to File");
+        }
+        out.println(nextNumber);
+        out.flush();
+        out.close();
+        return nextNumber;
+    }
+//******************************************************************************       
+
+
+
 }

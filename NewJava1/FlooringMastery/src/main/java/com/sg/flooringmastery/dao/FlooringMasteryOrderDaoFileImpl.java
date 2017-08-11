@@ -36,16 +36,12 @@ public class FlooringMasteryOrderDaoFileImpl implements FlooringMasteryOrderDao 
     Integer number = 0;
 
 //******************************************************************************
-//public FlooringMasteryOrderDaoFileImpl(){
-//    orderMapMemory = new HashMap<>();
-//}  
-//******************************************************************************
     @Override
     public Order createOrder(LocalDate date, Order order)
             throws NoOrderFoundException,
             FlooringMasteryPersistenceException,
             InvalidMoneyException {
-        
+
         if (orderMapMemory.get(date) == null) {
             try {
                 loadOrder(date);
@@ -61,17 +57,20 @@ public class FlooringMasteryOrderDaoFileImpl implements FlooringMasteryOrderDao 
         return order;
     }
 //******************************************************************************
+
     @Override
     public void removeOrder(LocalDate date, Integer number)
             throws FlooringMasteryPersistenceException {
         loadOrder(date);
         orderMapMemory.get(date).remove(number);
+        saveOrder(date);
     }
 
     @Override
     public Order editOrder(LocalDate date, Order order)
             throws FlooringMasteryPersistenceException {
         Order editedOrder = orderMapMemory.get(date).put(order.getNumber(), order);
+        saveOrder(date);
         return editedOrder;
     }
 
@@ -83,6 +82,17 @@ public class FlooringMasteryOrderDaoFileImpl implements FlooringMasteryOrderDao 
             return new ArrayList<Order>(orderMapMemory.get(date).values());
         }
         return null;
+    }
+
+    @Override
+    public Order getOrder(int number, LocalDate date)
+            throws FlooringMasteryPersistenceException {
+        try {
+            loadOrder(date);
+        } catch (FlooringMasteryPersistenceException e) {
+            throw new FlooringMasteryPersistenceException("Could not get Order");
+        }
+        return orderMapMemory.get(date).get(number);
     }
 
     @Override
@@ -169,11 +179,12 @@ public class FlooringMasteryOrderDaoFileImpl implements FlooringMasteryOrderDao 
                     + currentOrder.getLaborCost() + DELIMITER
                     + currentOrder.getTax() + DELIMITER
                     + currentOrder.getTotal() + "\n");
-            
+
             out.flush();
         }
         out.close();
     }
 }
+
 //******************************************************************************    
 

@@ -40,6 +40,7 @@ public interface FlooringMasteryOrderDao {
     void saveOrder(LocalDate date)
             throws FlooringMasteryPersistenceException;
 
-//    List<Order> getAllOrders()
-//            throws FlooringMasteryPersistenceException;
+    Order getOrder(int number, LocalDate date)
+            throws FlooringMasteryPersistenceException;
 }
+

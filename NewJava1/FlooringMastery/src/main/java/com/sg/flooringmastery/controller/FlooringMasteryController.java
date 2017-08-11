@@ -45,11 +45,11 @@ public class FlooringMasteryController {
                             addOrders();
                             break;
                         case 3:
-
+                            editOrders();
                             break;
 
                         case 4:
-
+                            removeOrders();
                             break;
                         case 5:
 
@@ -97,7 +97,7 @@ public class FlooringMasteryController {
 
     private void addOrders()
             throws NoOrderFoundException,
-            FlooringMasteryPersistenceException,InvalidMoneyException {
+            FlooringMasteryPersistenceException, InvalidMoneyException {
         LocalDate date = null;
         Order order = null;
         boolean hasErrors = false;
@@ -107,7 +107,7 @@ public class FlooringMasteryController {
                 view.displayAddOrdersBanner();
                 date = view.displayDateBanner();
                 order = view.displayGetOrderInfo();
-                service.createOrder(date, order);                
+                service.createOrder(date, order);
             } catch (FlooringMasteryPersistenceException e) {
                 view.displayErrorMessage(e.getMessage());
             }
@@ -121,5 +121,47 @@ public class FlooringMasteryController {
     }
 //******************************************************************************
 
+    private void editOrders()
+            throws NoOrderFoundException,
+            FlooringMasteryPersistenceException,
+            InvalidMoneyException {
+        boolean hasErrors = false;
+        do {
+            try {
+                view.displayEditOrdersBanner();
+                LocalDate date = view.displayDateBanner();
+                view.displayOrderList(service.getOrders(date));
+                int ordernumber = view.displayReadOrderNumber();
+                Order orderToUpdate = service.getOrder(ordernumber, date);
+                view.editedOrderAttribute(date, orderToUpdate);
+                service.editOrder(date, orderToUpdate);
+                view.displayOrderUpdatedSucessBanner();
+            } catch (FlooringMasteryPersistenceException e) {
+                view.displayErrorMessage(e.getMessage());
+            }
+        } while (hasErrors);
+
+    }
 //******************************************************************************     
+
+    private void removeOrders() throws NoOrderFoundException,
+            FlooringMasteryPersistenceException,
+            InvalidMoneyException {
+        boolean hasErrors = false;
+        do {
+            try {
+
+                view.displayRemoverderBanner();
+                LocalDate date = view.displayDateBanner();
+                view.displayOrderList(service.getOrders(date));
+                int ordernumber = view.displayReadOrderNumber();
+                Order orderToRemove = service.getOrder(ordernumber, date);
+                service.removeOrder(date, orderToRemove);
+                view.displayOrderRemovedSucessBanner();
+            } catch (FlooringMasteryPersistenceException e) {
+                view.displayErrorMessage(e.getMessage());
+            }
+        } while (hasErrors);
+    }
+//******************************************************************************    
 }

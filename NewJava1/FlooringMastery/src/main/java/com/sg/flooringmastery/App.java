@@ -20,6 +20,6 @@ public class App {
     public static void main(String[] args) throws NoOrderFoundException, InvalidMoneyException {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         FlooringMasteryController controller = ctx.getBean("controller", FlooringMasteryController.class);
-        controller.run();        
+        controller.run();       
     }
 }

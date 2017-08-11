@@ -57,6 +57,10 @@ public class FlooringMasteryView {
         io.print("\n*** ORDER CREATED SUCCESSFULLY ***");
     }
 
+    public void displayOrderUpdatedSucessBanner() {
+        io.print("\n*** ORDER UPDATED SUCCESSFULLY ***");
+    }
+
     public LocalDate displayRequestOrderDate() {
         return io.readLocalDate("What date would you like to display orders for (MMDDYYYY)?\n", "MMddyyyy");
 
@@ -106,7 +110,7 @@ public class FlooringMasteryView {
     }
 
     public LocalDate displayDateBanner() {
-        return io.readLocalDate("Please Enter Local Date ", "MMddyyyy");
+        return io.readLocalDate("Please Date/New Date ", "MMddyyyy");
 
     }
 
@@ -119,6 +123,11 @@ public class FlooringMasteryView {
     public boolean commitOrder() {
         io.print("\n");
         return io.readBoolean("Do You Want To Commit Your Changes (Y/N)?");
+    }
+
+    public boolean confirmorderRemoval() {
+        io.print("\n");
+        return io.readBoolean("ARE YOU SURE YOU WANT TO REMOVE THIS ORDER (Y/N)?");
     }
 //******************************************************************************    
 
@@ -143,8 +152,13 @@ public class FlooringMasteryView {
         io.print("2. Edit Customer Name ");
         io.print("3. Edit State Name ");
         io.print("4. Edit Product Name");
-        io.print("5. Edit the Area Value ");
-        return io.readInt("PLEASE SELECT FROM THE ABOVE CHOICES: ", 1, 5);
+        io.print("5. Edit Product Area Value ");
+        io.print("6. Exit ");
+        return io.readInt("PLEASE SELECT FROM THE ABOVE CHOICES: ", 1, 6);
+    }
+
+    public int displayReadOrderNumber() {
+        return io.readInt("Enter Order Number You Want to Edit: ");
     }
 
     public void editedOrderAttribute(LocalDate date, Order order)
@@ -180,6 +194,15 @@ public class FlooringMasteryView {
                     io.print("THIS IS NOT A VALID OPTION!!!!");
             }
         }
+    }
+
+    public void displayRemoverderBanner() {
+        io.print("\n*** REMOVE ORDERS ***");
+    }
+//******************************************************************************        
+
+    public void displayOrderRemovedSucessBanner() {
+        io.print("\n*** ORDER REMOVED SUCCESSFULLY ***");
     }
 //******************************************************************************
 
