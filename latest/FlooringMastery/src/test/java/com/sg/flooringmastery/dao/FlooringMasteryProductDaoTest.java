@@ -54,16 +54,5 @@ public class FlooringMasteryProductDaoTest {
     @Test
     public void testGetAllProducts() throws Exception {
     }
-
-    public class FlooringMasteryProductDaoImpl implements FlooringMasteryProductDao {
-
-        public Product getProduct(String productType) throws FlooringMasteryPersistenceException {
-            return null;
-        }
-
-        public List<Product> getAllProducts() throws FlooringMasteryPersistenceException {
-            return null;
-        }
-    }
     
 }

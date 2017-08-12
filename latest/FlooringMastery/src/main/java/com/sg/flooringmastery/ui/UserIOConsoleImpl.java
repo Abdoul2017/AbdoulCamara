@@ -30,7 +30,7 @@ public class UserIOConsoleImpl implements UserIO {
     }
 
     @Override
-    public double readDouble(String prompt)throws InvalidInputException {
+    public double readDouble(String prompt) throws InvalidInputException {
         boolean badInput = false;
         double userInput = 0;
         do {
@@ -48,7 +48,7 @@ public class UserIOConsoleImpl implements UserIO {
     }
 
     @Override
-    public double readDouble(String prompt, double min, double max)throws InvalidInputException{
+    public double readDouble(String prompt, double min, double max) throws InvalidInputException {
         double userInput = 0.0;
         do {
             System.out.println(prompt);
@@ -59,7 +59,7 @@ public class UserIOConsoleImpl implements UserIO {
     }
 
     @Override
-    public float readFloat(String prompt)throws InvalidInputException {
+    public float readFloat(String prompt) throws InvalidInputException {
         boolean badInput;
         int userInput = 0;
         do {
@@ -72,7 +72,7 @@ public class UserIOConsoleImpl implements UserIO {
             } catch (InputMismatchException e) {
                 System.out.println("INPUT ERROR. YOU ENTERED AN INVALID INPUT");
                 badInput = false;
-                inputReader.nextLine();         
+                inputReader.nextLine();
             }
 
         } while (badInput);
@@ -81,7 +81,7 @@ public class UserIOConsoleImpl implements UserIO {
     }
 
     @Override
-    public float readFloat(String prompt, float min, float max) throws InvalidInputException{
+    public float readFloat(String prompt, float min, float max) throws InvalidInputException {
         float userInput = 0.0f;
         do {
             System.out.println(prompt);
@@ -93,7 +93,7 @@ public class UserIOConsoleImpl implements UserIO {
     }
 
     @Override
-    public int readInt(String prompt) throws InvalidInputException{
+    public int readInt(String prompt) throws InvalidInputException {
         boolean badInput;
         int userInput = 0;
         do {
@@ -104,7 +104,7 @@ public class UserIOConsoleImpl implements UserIO {
                 badInput = false;
             } catch (InputMismatchException e) {
                 System.out.println("INPUT ERROR. YOU ENTERED AN INVALID INPUT");
-                badInput = false;
+                badInput = true;
 //                inputReader.nextLine();
             }
         } while (badInput);
@@ -112,7 +112,7 @@ public class UserIOConsoleImpl implements UserIO {
     }
 
     @Override
-    public int readInt(String prompt, int min, int max) throws InvalidInputException{
+    public int readInt(String prompt, int min, int max) throws InvalidInputException {
         int userInput = 0;
         do {
             System.out.println(prompt);
@@ -124,7 +124,7 @@ public class UserIOConsoleImpl implements UserIO {
     }
 
     @Override
-    public long readLong(String prompt) throws InvalidInputException{
+    public long readLong(String prompt) throws InvalidInputException {
         boolean badInput;
         long userInput = 0;
         do {
@@ -143,7 +143,7 @@ public class UserIOConsoleImpl implements UserIO {
     }
 
     @Override
-    public long readLong(String prompt, long min, long max) throws InvalidInputException{
+    public long readLong(String prompt, long min, long max) throws InvalidInputException {
         long userInput = 0;
         do {
             System.out.println(prompt);
@@ -154,8 +154,8 @@ public class UserIOConsoleImpl implements UserIO {
     }
 
     @Override
-    public String readString(String prompt) 
-            throws InvalidInputException{
+    public String readString(String prompt)
+            throws InvalidInputException {
         boolean badInput;
         String userInput = "";
         do {
@@ -214,4 +214,61 @@ public class UserIOConsoleImpl implements UserIO {
             return false;
         }
     }
+//******************************************************************************
+    @Override
+    public String readState(String prompt) throws InvalidInputException {
+        boolean badInput = false;
+        String userInput = "";
+        do {
+            try {
+                System.out.println(prompt);
+                userInput = inputReader.nextLine();
+                if (userInput.equalsIgnoreCase("OH") || userInput.equalsIgnoreCase("PA")
+                        || userInput.equalsIgnoreCase("MI") || userInput.equalsIgnoreCase("IN")) {
+                    badInput = false;
+                    
+                }else{
+                    badInput = true;
+                    System.out.println("===========The State Name you Enter is Incorrect. Please Enter Either: PA, OH, MI, and IN===========");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("INPUT ERROR. YOU ENTERED AN INVALID INPUT");
+                badInput = true;
+//                inputReader.nextLine();
+            }
+        } while (badInput);
+
+        return userInput;
+    }
+//******************************************************************************    
+
+    @Override
+    public String readProduct(String prompt) 
+            throws InvalidInputException {
+                boolean badInput = false;
+        String userInput = "";
+        do {
+            try {
+                System.out.println(prompt);
+                userInput = inputReader.nextLine();
+                if (userInput.equalsIgnoreCase("Carpet") || userInput.equalsIgnoreCase("Laminate")
+                        || userInput.equalsIgnoreCase("Tile") || userInput.equalsIgnoreCase("Wood")) {
+                    badInput = false;
+                    
+                }else{
+                    badInput = true;
+                    System.out.println("===========The Product Name . Please Enter Either:Carpet, Laminate, Tile or Wood===========");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("INPUT ERROR. YOU ENTERED AN INVALID INPUT");
+                badInput = true;
+//                inputReader.nextLine();
+            }
+        } while (badInput);
+
+        return userInput;
+    }
+
 }

@@ -100,38 +100,5 @@ public class FlooringMasteryOrderDaoTest {
     @Test
     public void testGetOrder() throws Exception {
     }
-
-    public class FlooringMasteryOrderDaoImpl implements FlooringMasteryOrderDao {
-
-        public Order createOrder(LocalDate date, Order order) throws NoOrderFoundException, FlooringMasteryPersistenceException, InvalidInputException {
-            return null;
-        }
-
-        public Order removeOrder(LocalDate date, Integer number) throws FlooringMasteryPersistenceException {
-            return null;
-        }
-
-        public Order editOrder(LocalDate date, Order order) throws FlooringMasteryPersistenceException {
-            return null;
-        }
-
-        public List<Order> retrieveOrdersByDate(LocalDate date) throws FlooringMasteryPersistenceException {
-            return null;
-        }
-
-        public Order retrieveOrdersByDateAndId(LocalDate date, Integer number) throws FlooringMasteryPersistenceException {
-            return null;
-        }
-
-        public void loadOrder(LocalDate date) throws FlooringMasteryPersistenceException {
-        }
-
-        public void saveOrder(LocalDate date) throws FlooringMasteryPersistenceException {
-        }
-
-        public Order getOrder(int number, LocalDate date) throws FlooringMasteryPersistenceException, NoOrderFoundException {
-            return null;
-        }
-    }
     
 }

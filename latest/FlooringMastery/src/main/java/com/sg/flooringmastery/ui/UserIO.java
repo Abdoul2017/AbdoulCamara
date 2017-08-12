@@ -45,5 +45,9 @@ public interface UserIO {
     LocalDate readLocalDate(String prompt, String format);
     
     boolean readBoolean(String prompt);
+    
+    String readState(String prompt)throws InvalidInputException;
+    
+    String readProduct(String prompt)throws InvalidInputException;
 
 }

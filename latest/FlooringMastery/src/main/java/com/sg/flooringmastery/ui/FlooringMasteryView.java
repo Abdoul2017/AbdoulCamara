@@ -91,10 +91,10 @@ public class FlooringMasteryView {
 
     public Order displayGetOrderInfo() throws InvalidInputException, FlooringMasteryPersistenceException {
         io.print("        ENTER ORDER INFO   ");
-
+        
         String customerName = io.readString("Please Enter Customer Name");
-        String stateName = io.readString("Please Enter OH, PA, MI, or IN");
-        String productType = io.readString("Please Enter Carpet, Laminate, Tile or Wood");
+        String stateName = io.readState("Please Enter OH, PA, MI, or IN");
+        String productType = io.readProduct("Please Enter Carpet, Laminate, Tile or Wood");
         BigDecimal area = io.readBigDecimal("Please Enter the Area ");
 
         Order currentOrder = new Order();
@@ -106,7 +106,7 @@ public class FlooringMasteryView {
 
         Product newProduct = new Product(productType);
         currentOrder.setProductType(newProduct);
-        currentOrder.setArea(area);
+        currentOrder.setArea(area); 
 
         return currentOrder;
     }

@@ -54,16 +54,5 @@ public class FlooringMasteryStateTaxDaoTest {
     @Test
     public void testGetAllTaxes() throws Exception {
     }
-
-    public class FlooringMasteryStateTaxDaoImpl implements FlooringMasteryStateTaxDao {
-
-        public StateTax getTax(String stateName) throws FlooringMasteryPersistenceException {
-            return null;
-        }
-
-        public List<StateTax> getAllTaxes() throws FlooringMasteryPersistenceException {
-            return null;
-        }
-    }
     
 }

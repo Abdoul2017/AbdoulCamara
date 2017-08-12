@@ -114,38 +114,6 @@ public class FlooringMasteryServiceLayerTest {
     public void testGetOrder() throws Exception {
     }
 
-    public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLayer {
 
-        public Order commitWork(LocalDate date, Order order) throws FlooringMasteryPersistenceException, NoOrderFoundException, InvalidInputException {
-            return null;
-        }
-
-        public List<Order> getOrders(LocalDate date) throws NoOrderFoundException, FlooringMasteryPersistenceException {
-            return null;
-        }
-
-        public Order createOrder(LocalDate date, Order order) throws NoOrderFoundException, FlooringMasteryPersistenceException, InvalidInputException {
-            return null;
-        }
-
-        public Order editOrder(LocalDate date, Order order) throws NoOrderFoundException, FlooringMasteryPersistenceException, InvalidInputException {
-            return null;
-        }
-
-        public void removeOrder(LocalDate date, Order order) throws NoOrderFoundException, FlooringMasteryPersistenceException, InvalidInputException {
-        }
-
-        public Order confirmOrderRemoval(LocalDate date, Order order) throws FlooringMasteryPersistenceException, NoOrderFoundException, InvalidInputException {
-            return null;
-        }
-
-        public Order commitEditChange(LocalDate date, Order order) throws FlooringMasteryPersistenceException, NoOrderFoundException, InvalidInputException {
-            return null;
-        }
-
-        public Order getOrder(int ordernumber, LocalDate date) throws NoOrderFoundException, FlooringMasteryPersistenceException, InvalidInputException {
-            return null;
-        }
-    }
 
 }
